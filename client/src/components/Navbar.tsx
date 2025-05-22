@@ -12,6 +12,12 @@ const Navbar: React.FC = () => (
       <NavLink to="/billing" className={({ isActive }) => (isActive ? 'active' : '')}>
         Billing
       </NavLink>
+        <NavLink to="/home" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Home
+        </NavLink>
+        <NavLink to="/dashboard" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Dashboard
+        </NavLink>
     </div>
   </nav>
 );

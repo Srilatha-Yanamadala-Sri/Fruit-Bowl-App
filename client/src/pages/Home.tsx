@@ -31,23 +31,24 @@ const Home: React.FC = () => {
       const res = await getProducts();
       setProducts(res.data);
     } catch (err) {
-      console.error(err);
+      console.error('Error fetching products:', err);
     }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.name === 'price' ? parseFloat(e.target.value) : e.target.value,
-    });
+    const { name, value } = e.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: name === 'price' ? parseFloat(value) : value,
+    }));
   };
 
   const handleAddIngredient = () => {
-    if (ingredientsInput.trim() !== '') {
-      setForm({
-        ...form,
-        ingredients: [...form.ingredients, ingredientsInput.trim()],
-      });
+    if (ingredientsInput.trim()) {
+      setForm(prev => ({
+        ...prev,
+        ingredients: [...prev.ingredients, ingredientsInput.trim()],
+      }));
       setIngredientsInput('');
     }
   };
@@ -59,7 +60,7 @@ const Home: React.FC = () => {
       fetchProducts();
       setForm({ name: '', description: '', price: 0, image: '', ingredients: [] });
     } catch (err) {
-      console.error(err);
+      console.error('Error creating product:', err);
     }
   };
 
@@ -103,6 +104,7 @@ const Home: React.FC = () => {
           required
           style={{ width: '100%', padding: '0.5rem', marginBottom: '0.5rem' }}
         />
+
         <div style={{ display: 'flex', marginBottom: '0.5rem' }}>
           <input
             type="text"
@@ -114,16 +116,30 @@ const Home: React.FC = () => {
           <button
             type="button"
             onClick={handleAddIngredient}
-            style={{ marginLeft: '0.5rem', backgroundColor: '#4caf50', color: 'white', border: 'none', padding: '0 1rem', cursor: 'pointer' }}
+            style={{
+              marginLeft: '0.5rem',
+              backgroundColor: '#4caf50',
+              color: 'white',
+              border: 'none',
+              padding: '0 1rem',
+              cursor: 'pointer',
+            }}
           >
             Add
           </button>
         </div>
+
         <p><strong>Ingredients:</strong> {form.ingredients.join(', ')}</p>
 
         <button
           type="submit"
-          style={{ backgroundColor: '#4caf50', color: 'white', padding: '0.7rem 1.5rem', border: 'none', cursor: 'pointer' }}
+          style={{
+            backgroundColor: '#4caf50',
+            color: 'white',
+            padding: '0.7rem 1.5rem',
+            border: 'none',
+            cursor: 'pointer',
+          }}
         >
           Add Fruit Bowl
         </button>
@@ -132,7 +148,7 @@ const Home: React.FC = () => {
       <h2 style={{ color: '#4caf50' }}>Available Fruit Bowls</h2>
       {products.length === 0 && <p>No fruit bowls found.</p>}
       {products.map(product => (
-        <ProductCard key={product._id} product={product} />
+        <ProductCard key={product._id} product={product} onEdit={() => {}} onDelete={() => {}} />
       ))}
     </div>
   );

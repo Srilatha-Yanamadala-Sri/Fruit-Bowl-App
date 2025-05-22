@@ -1,16 +1,10 @@
 body {
-  margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #e8f5e9;
+  background-color: #f0f5f9;
+  margin: 0;
+  padding: 0;
   color: #333;
 }
-
-input, textarea {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-button:hover {
-  opacity: 0.9;
+button:focus {
+  outline: none;
 }
